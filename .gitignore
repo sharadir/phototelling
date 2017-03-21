@@ -1,3 +1,13 @@
+.classpath
+.project
+.gradle
+.settings
+.idea
+bin
+/gen
+/assets
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
