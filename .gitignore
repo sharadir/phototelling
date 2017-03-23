@@ -4,6 +4,7 @@
 .settings
 .idea
 bin
+build
 /gen
 /assets
 
