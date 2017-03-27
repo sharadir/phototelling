@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Phototell</string>
+    <string name="app_label">Description</string>
     <string name="pick_image_intent_text">Pick image or take a new one:</string>
+    <string name="no_pics">No photos uploaded yet. try it out!!</string>
+    <string name="no_pics_filter">No photos were found... please refine your search</string>
+    <string name="no_pic_details">No details found!!!</string>
 
-
+    <string name="search_result">Search Result!</string>
+    <string name="upload_img_description">Upload img description</string>
+    <string name="search_hint">Type and Search</string>
+    <string name="menu_search">Search</string>
 </resources>
