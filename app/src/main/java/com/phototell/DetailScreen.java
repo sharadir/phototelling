@@ -69,7 +69,15 @@ public class DetailScreen extends AppCompatActivity {
                 .commit();
     }
 
-    private void handlePhotoDescription(int photoId) {
+	@Override
+	public void onPause() {
+
+		this.unregisterReceiver(detailsReceiver);
+		super.onPause();
+	}
+
+
+	private void handlePhotoDescription(int photoId) {
         final Photo photo = PhotoManager.getInstance().getPhoto(photoId);
         final PhotoDetailsFragment photoDetailsFragment = getPhotoDetailsFragment();
         if (photo != null && photoDetailsFragment != null) {

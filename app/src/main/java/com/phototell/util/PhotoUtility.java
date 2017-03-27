@@ -55,6 +55,7 @@ public class PhotoUtility {
 			photo.setCreationDate(getDate(dateTaken));
 			AssetFileDescriptor fileDescriptor = context.getContentResolver().openAssetFileDescriptor(uri, "r");
 			Bitmap bm = getImageResized(fileDescriptor);
+			//Bitmap bm = getImage(fileDescriptor);
 			if (bm != null) {//TODO fix ugly
 				int rotation = getRotation(context, uri, isCamera);
 				bm = rotate(bm, rotation);
@@ -80,9 +81,6 @@ public class PhotoUtility {
 
 	private static Date getDate(String time) {
 		try {
-			//SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-			//formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-			//return formatter.parse(Long.parseLong(time));
 			Calendar cal = Calendar.getInstance(Locale.ENGLISH);
 			cal.setTimeInMillis(Long.parseLong(time));
 			return cal.getTime();
@@ -93,27 +91,6 @@ public class PhotoUtility {
 		}
 	}
 
-	/*  private String getDated(String OurDate)
-	  {
-		  try
-		  {
-			  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			  formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-			  Date value = formatter.parse(OurDate);
-
-			  SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //this format changeable
-			  dateFormatter.setTimeZone(TimeZone.getDefault());
-			  OurDate = dateFormatter.format(value);
-
-			  //Log.d("OurDate", OurDate);
-		  }
-		  catch (Exception e)
-		  {
-			  OurDate = "00-00-0000 00:00";
-		  }
-		  return OurDate;
-	  }
-  */
 	private static Bitmap decodeBitmap(AssetFileDescriptor fileDescriptor, int sampleSize) {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inSampleSize = sampleSize;
@@ -126,6 +103,14 @@ public class PhotoUtility {
 					actuallyUsableBitmap.getWidth() + " " + actuallyUsableBitmap.getHeight());
 		}
 
+		return actuallyUsableBitmap;
+	}
+
+	private static Bitmap decodeBitmap(AssetFileDescriptor fileDescriptor) {
+		BitmapFactory.Options options = new BitmapFactory.Options();
+
+		Bitmap actuallyUsableBitmap = BitmapFactory.decodeFileDescriptor(
+				fileDescriptor.getFileDescriptor(), null, options);
 		return actuallyUsableBitmap;
 	}
 
@@ -143,6 +128,13 @@ public class PhotoUtility {
 			i++;
 		} while (bm != null && bm.getWidth() < minWidthQuality && i < sampleSizes.length);
 		return bm;
+	}
+
+	/**
+	 * Resize to avoid using too much memory loading big images (e.g.: 2560*1920)
+	 **/
+	private static Bitmap getImage(AssetFileDescriptor fileDescriptor) {
+		return decodeBitmap(fileDescriptor);
 	}
 
 	private static int getRotation(Context context, Uri imageUri, boolean isCamera) {

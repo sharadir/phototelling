@@ -9,6 +9,8 @@ import com.phototell.common.DataLoader;
 import com.phototell.data.Photo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -42,8 +44,17 @@ public class PhotoManager {
         try {
             handler.addPhoto(photo);
             photos.add(photo);
+
+	        //sort photos
+	        Collections.sort(photos, new Comparator<Photo>() {
+		        @Override
+		        public int compare(Photo lhs, Photo rhs) {
+			        // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+			        return lhs.getCreationDate() != null && rhs.getCreationDate() != null && lhs.getCreationDate().after(rhs.getCreationDate()) ? 0 : 1;
+		        }
+	        });
         } catch (RuntimeException e) {
-	        //TODO improve design to have onFailur
+	        //TODO improve design to have onFailure
 	        int duration = Toast.LENGTH_SHORT;
 	        Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error saving the image" + e.toString(), duration);
 	        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
