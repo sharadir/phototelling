@@ -1,6 +1,5 @@
 package com.phototell.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
@@ -12,7 +11,12 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
+import com.phototell.HomeScreen;
+import com.phototell.PhotoTellApplication;
+import com.phototell.R;
 import com.phototell.data.Photo;
 
 import java.io.ByteArrayOutputStream;
@@ -20,6 +24,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,37 +38,67 @@ public class PhotoUtility {
     public static int minWidthQuality = DEFAULT_MIN_WIDTH_QUALITY;
 
     public static Photo convertUri(Context context, @NonNull Uri uri, boolean isCamera) {
-        Photo photo = new Photo();
         Log.d(TAG, "convertUri: " + uri.toString());
 
-        AssetFileDescriptor fileDescriptor = null;
         try {
-            fileDescriptor = context.getContentResolver().openAssetFileDescriptor(uri, "r");
+            Photo photo = new Photo();
+            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+            cursor.moveToFirst();
+            int column_index_date_taken = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN);
+
+            String dateTaken = cursor.getString(column_index_date_taken);
+            photo.setCreationDate(getDate(dateTaken));
+
+            AssetFileDescriptor fileDescriptor = context.getContentResolver().openAssetFileDescriptor(uri, "r");
+            Bitmap bm = getImageResized(fileDescriptor);
+            int rotation = getRotation(context, uri, isCamera);
+            bm = rotate(bm, rotation);
+            photo.setImageBitMap(bm);
+            photo.setImageBytes(getBytes(bm));
+            return photo;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            //TODO return
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error uploading the image", duration);
+            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
+            toast.show();
+            return null;
         }
+    }
 
-        ExifInterface intf = null;
+    private static Date getDate(String  time) {
         try {
-            intf = new ExifInterface(uri.toString());
-        } catch (IOException e) {
+            SimpleDateFormat formatter = new SimpleDateFormat("mm-dd-yyyy HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+           return formatter.parse(time);
+        } catch (Exception e) {
             e.printStackTrace();
+            Calendar c = Calendar.getInstance();
+            return c.getTime();//get local date
         }
+    }
 
-        if (intf == null) {
-    /* File doesn't exist or isn't an image */
+    private String getDated(String OurDate)
+    {
+        try
+        {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date value = formatter.parse(OurDate);
+
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //this format changeable
+            dateFormatter.setTimeZone(TimeZone.getDefault());
+            OurDate = dateFormatter.format(value);
+
+            //Log.d("OurDate", OurDate);
         }
-
-        String dateString = intf.getAttribute(ExifInterface.TAG_DATETIME);
-
-        Bitmap bm = getImageResized(fileDescriptor);
-        int rotation = getRotation(context, uri, isCamera);
-        bm = rotate(bm, rotation);
-        photo.setImageBitMap(bm);
-        photo.setImageBytes(getBytes(bm));
-        return photo;
-}
+        catch (Exception e)
+        {
+            OurDate = "00-00-0000 00:00";
+        }
+        return OurDate;
+    }
 
     private static Bitmap decodeBitmap(AssetFileDescriptor fileDescriptor, int sampleSize) {
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -158,6 +197,7 @@ public class PhotoUtility {
         }
         return bm;
     }
+
     // convert from bitmap to byte array
     public static byte[] getBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();

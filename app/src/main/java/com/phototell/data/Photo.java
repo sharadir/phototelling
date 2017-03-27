@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.phototell.util.PhotoUtility;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -24,7 +25,8 @@ public class Photo implements Serializable {
     @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField(columnName = DATE_FIELD_NAME)
+    @DatabaseField(columnName = DATE_FIELD_NAME, dataType = DataType.DATE_STRING,
+            format = "mm-dd-yyyy HH:mm:ss")
     private Date creationDate;
 
     @DatabaseField
@@ -39,6 +41,9 @@ public class Photo implements Serializable {
     private Bitmap imageBitMap;
 
     public Bitmap getImageBitMap() {
+        if(imageBitMap == null){
+            imageBitMap = PhotoUtility.getImage(imageBytes);
+        }
         return imageBitMap;
     }
 
