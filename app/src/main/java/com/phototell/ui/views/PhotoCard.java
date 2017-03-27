@@ -70,9 +70,9 @@ public class PhotoCard extends CardView
 
         description.setText(photo.getDescription());
         Date creationDate = photo.getCreationDate();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
-        if (creationDate != null) {
-            createdAt.setText(formatter.format(creationDate));
+	    String newDateFormat = new SimpleDateFormat("dd-MM-yyyy").format(creationDate);
+        if (newDateFormat != null) {
+            createdAt.setText(newDateFormat);
         }
 
         uploadDescription.setOnClickListener(new OnClickListener() {

@@ -3,4 +3,5 @@
     android:id="@+id/no_items_text"
     android:layout_width="match_parent"
     android:textSize="18sp"
+	android:textColor="@color/colorPrimaryGreen"
     android:layout_height="wrap_content" />

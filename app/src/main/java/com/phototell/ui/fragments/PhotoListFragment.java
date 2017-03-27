@@ -3,6 +3,7 @@ package com.phototell.ui.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import com.phototell.common.DataLoader;
 import com.phototell.data.Photo;
 import com.phototell.model.PhotoManager;
 import com.phototell.ui.views.PhotoListItemCard;
+import com.phototell.util.Threads;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -123,12 +125,17 @@ public class PhotoListFragment extends BaseDataListFragment {
         }
 
         @Override
-        public void onFailure(String errorMessage) {
-            PhotoListFragment fragment = fragmentWeakReference.get();
-            if (fragment == null || fragment.getActivity() == null) {
-                return;
-            }
-            fragment.toast(errorMessage);
+        public void onFailure(final String errorMessage) {
+	        Threads.postOnUiThread(new Runnable() {
+		        @Override
+		        public void run() {
+			        PhotoListFragment fragment = fragmentWeakReference.get();
+			        if (fragment == null || fragment.getActivity() == null) {
+				        return;
+			        }
+			        fragment.toast(errorMessage);
+		        }
+	        });
         }
     }
 }

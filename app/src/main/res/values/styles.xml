@@ -20,7 +20,7 @@
         <item name="background">@color/background</item>
     </style>
 
-    <color name="winBackground">#98cb4a</color>
-    <color name="background">#f76d3c</color>
+    <color name="winBackground">#F0F66E</color>
+    <color name="background">#A8C686</color>
 
 </resources>

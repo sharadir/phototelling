@@ -60,7 +60,7 @@ class PhotoHendler extends AsyncDataLoader<Photo> {
             list = dao.query(builder.prepare());
 
         } catch (SQLException e) {
-            onFailure(e.toString());//TODO update: user friendly message (const)
+            onFailure(e.toString());//TODO update: user friendly message (const) TODO should move to UI thread....
         }
         return list;
     }

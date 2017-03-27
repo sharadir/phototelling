@@ -1,6 +1,8 @@
 package com.phototell.model;
 
 import android.support.annotation.NonNull;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.phototell.PhotoTellApplication;
 import com.phototell.common.DataLoader;
@@ -41,7 +43,12 @@ public class PhotoManager {
             handler.addPhoto(photo);
             photos.add(photo);
         } catch (RuntimeException e) {
-            //TODO toast
+	        //TODO improve design to have onFailur
+	        int duration = Toast.LENGTH_SHORT;
+	        Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error saving the image" + e.toString(), duration);
+	        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
+	        toast.show();
+
         }
     }
 
@@ -49,7 +56,11 @@ public class PhotoManager {
         try {
             handler.updatePhoto(photo);
         } catch (RuntimeException e) {
-            //TODO toast
+            //TODO improve design to have onFailure
+	        int duration = Toast.LENGTH_SHORT;
+	        Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error saving the image" + e.toString(), duration);
+	        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
+	        toast.show();
         }
     }
 

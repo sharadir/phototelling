@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="@string/upload_img_description"
-        android:textColor="@color/colorPrimaryGreen"
+        android:textColor="@color/colorPrimaryYellow"
         android:padding="8dp"
         android:focusable="true" />
 

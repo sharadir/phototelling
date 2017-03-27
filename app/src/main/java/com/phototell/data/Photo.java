@@ -25,8 +25,8 @@ public class Photo implements Serializable {
     @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField(columnName = DATE_FIELD_NAME, dataType = DataType.DATE_STRING,
-            format = "mm-dd-yyyy HH:mm:ss")
+    @DatabaseField(columnName = DATE_FIELD_NAME)//, dataType = DataType.DATE_STRING,
+            //format = "mm-dd-yyyy HH:mm:ss")
     private Date creationDate;
 
     @DatabaseField
