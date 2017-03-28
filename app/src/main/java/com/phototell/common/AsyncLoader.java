@@ -1,12 +1,8 @@
 package com.phototell.common;
 
-
 import android.os.AsyncTask;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-
 /*
 base class for AsyncTasks data loaders.
 D: data type.

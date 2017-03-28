@@ -19,14 +19,14 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by user on 21/03/2017.
+ * Manage photos:
+ * photos are loaded once and stored in memory since loaded.
+ * Has basic photos functionality: load,create,update
  */
-
 public class PhotoManager {
 
     private final List<Photo> photos;
     private boolean isLoaded;
-
     private final DatabaseHelper helper;
 
     private static class InstanceHolder {
@@ -78,7 +78,6 @@ public class PhotoManager {
             toast.show();
         }
     }
-
 
     public List<Photo> cachedList() {
         return photos;
@@ -158,7 +157,6 @@ public class PhotoManager {
         }
         return res;
     }
-
 
     public List<Photo> filterPhotos(String text) {
         if (text == null || text.equals("")) {

@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  *
- *
+ * Fragment for showing a list of photos
  */
 
 public class PhotoListFragment extends BaseDataListFragment {

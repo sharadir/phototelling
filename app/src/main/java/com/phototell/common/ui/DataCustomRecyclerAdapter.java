@@ -5,20 +5,22 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.phototell.ui.views.ViewsFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Single adapter for adapting all CustomView object.
+ * Note: data binding is done on the view itself using CustomView.bind(D data) interface
+ * */
 public class DataCustomRecyclerAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
     private final List<Object> items;
     private final List<Class> dataTypeIndex;
     private final Map<Class, Class> viewsHash;//key: data type class, value: custom view class.
     private final CustomViewHolder.ClickListener clickListener;
-    private
+
     @Nullable
     View.OnLongClickListener longClickListener;
     private CustomViewHolder.ClickListener onItemClickListener;

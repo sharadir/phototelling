@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *  data loader for photos.
- *  once photos are stored in the server side this class fetchDataInBackground function is to be changed.
+ *  once photos are stored in the server side, fetchDataInBackground function is to be changed.
  */
 class PhotosLoader<D> extends AsyncListLoader<Photo> {
 

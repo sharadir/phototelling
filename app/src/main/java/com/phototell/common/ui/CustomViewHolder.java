@@ -1,15 +1,13 @@
 package com.phototell.common.ui;
 
-/**
- * Custom view holder for handling recycler events
- */
-
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.phototell.ui.views.PhotoListItemCard;
 
+/**
+ * For supporting {@link com.phototell.common.ui.DataCustomRecyclerAdapter}
+ * */
 public class CustomViewHolder<D> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
     private final ClickListener clickListener;

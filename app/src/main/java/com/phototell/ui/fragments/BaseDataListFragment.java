@@ -19,8 +19,8 @@ import com.phototell.data.Photo;
 import java.util.Map;
 
 /**
- * @see BaseDataFragment
- * extends BaseDataFragment using DataCustomRecyclerAdapter and a RecyclerView as data wrapper.
+ *
+ * extends {@see BaseDataFragment} using DataCustomRecyclerAdapter and a RecyclerView as a data wrapper.
  */
 
 public abstract class BaseDataListFragment

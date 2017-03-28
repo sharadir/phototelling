@@ -18,8 +18,9 @@ import com.phototell.R;
 import static android.view.View.*;
 
 /**
- * A fragment that displays items
- * BaseDataFragment holds common views(loading dialog/no items message/header etc).
+ * BaseDataFragment is a fragment for common loading/displaying items operations
+ * abstract inflateDataView function: every fragment that uses BaseDataFragment has to specify
+ * a view for displaying data,
  */
 public abstract class BaseDataFragment<DataWrapper> extends Fragment {
 

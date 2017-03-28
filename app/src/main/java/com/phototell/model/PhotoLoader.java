@@ -11,7 +11,7 @@ import com.phototell.util.PhotoUtility;
 
 /**
  *  data loader for photo.
- *  once photos are stored in the server side this class fetchDataInBackground function is to be changed.
+ *  once photos are stored in the server side, fetchDataInBackground function is to be changed.
  */
 class PhotoLoader<D> extends AsyncLoader<Photo> {
 

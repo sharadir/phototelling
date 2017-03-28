@@ -14,13 +14,13 @@ public class ViewsFactory {
     }
 
     public static ViewsFactory getInstance() {
-		return InstanceHolder.INSTANCE;
+        return InstanceHolder.INSTANCE;
     }
 
     public <C extends CustomView> C getCustomView(@NonNull Class<C> viewClass, Context context) {
         try {
             Constructor<?> ctor = viewClass.getConstructor(Context.class);
-            return (C) ctor.newInstance(new Object[] { context });
+            return (C) ctor.newInstance(new Object[]{context});
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

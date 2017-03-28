@@ -5,7 +5,9 @@ import android.app.Application;
 import android.content.Context;
 
 /**
- * Created by user on 22/03/2017.
+
+ Application for tobe able to getApplicationContext outside of fragment/activity
+
  */
 
 public class PhotoTellApplication extends Application {

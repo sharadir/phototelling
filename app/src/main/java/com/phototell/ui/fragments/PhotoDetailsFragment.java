@@ -24,7 +24,7 @@ import static android.view.View.GONE;
 
 /**
  *
- *
+ * Fragment for showing photo details
  */
 
 public class PhotoDetailsFragment extends BaseDataFragment {
