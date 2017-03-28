@@ -6,10 +6,8 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.phototell.util.PhotoUtility;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Photo information object saved to the database.
@@ -25,9 +23,11 @@ public class Photo implements Serializable {
     @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField(columnName = DATE_FIELD_NAME)//, dataType = DataType.DATE_STRING,
-            //format = "mm-dd-yyyy HH:mm:ss")
+    @DatabaseField(columnName = DATE_FIELD_NAME)
     private Date creationDate;
+
+    @DatabaseField(dataType = DataType.BYTE_ARRAY)
+    private byte[] thumbnailBytes;
 
     @DatabaseField
     private String name;
@@ -35,15 +35,41 @@ public class Photo implements Serializable {
     @DatabaseField
     private String description;
 
-    @DatabaseField(dataType = DataType.BYTE_ARRAY)
-    private byte[] imageBytes;
+    @DatabaseField
+    private String path;
 
     private Bitmap imageBitMap;
 
-    public Bitmap getImageBitMap() {
-        if(imageBitMap == null){
-            imageBitMap = PhotoUtility.getImage(imageBytes);
+    private Bitmap thumbnailBBitMap;
+
+    public Bitmap getThumbnailBBitMap() {
+        if(thumbnailBBitMap ==null){
+            thumbnailBBitMap = PhotoUtility.getImage(thumbnailBytes);
         }
+        return thumbnailBBitMap;
+    }
+
+    public void setThumbnailBBitMap(Bitmap thumbnailBBitMap) {
+        this.thumbnailBBitMap = thumbnailBBitMap;
+    }
+
+    public void setThumbnailBytes(byte[] thumbnailBytes) {
+        this.thumbnailBytes = thumbnailBytes;
+    }
+
+    public byte[] getThumbnailBytes() {
+        return thumbnailBytes;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Bitmap getImageBitMap() {
         return imageBitMap;
     }
 
@@ -57,14 +83,6 @@ public class Photo implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public void setImageBytes(byte[] imageBytes) {
-        this.imageBytes = imageBytes;
-    }
-
-    public byte[] getImageBytes() {
-        return imageBytes;
     }
 
     public Integer getId() {

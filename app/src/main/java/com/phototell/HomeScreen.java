@@ -1,11 +1,8 @@
 package com.phototell;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,7 +14,6 @@ import android.support.v7.widget.SearchView;
 import android.widget.Toast;
 
 import com.phototell.data.Photo;
-import com.phototell.data.UriInfo;
 import com.phototell.model.PhotoManager;
 import com.phototell.ui.fragments.PhotoDetailsFragment;
 import com.phototell.ui.fragments.PhotoListFragment;
@@ -77,8 +73,7 @@ public class HomeScreen extends AppCompatActivity
 		// Inflate menu to add items to action bar if it is present.
 		inflater.inflate(R.menu.menu_main, menu);
 		// Associate searchable configuration with the SearchView
-		SearchView searchView =
-				(SearchView) menu.findItem(R.id.menu_search).getActionView();
+		SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
 		searchView.setOnQueryTextListener(new QueryTextListener());
 		return true;
 	}
@@ -98,12 +93,12 @@ public class HomeScreen extends AppCompatActivity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 			case RESULT_LOAD_IMAGE:
-				UriInfo uriInfo = PhotoPicker.getUriInfoFromResult(HomeScreen.this, resultCode, data);
-				if (uriInfo.getUri() != null) {
-					Photo photo = PhotoUtility.convertUri(HomeScreen.this, uriInfo.getUri(), uriInfo.isCamera());
+				Uri uri = PhotoPicker.getUriFromResult(HomeScreen.this, resultCode, data);
+				if (uri != null) {
+					Photo photo = PhotoUtility.convertUri(HomeScreen.this, uri);
 					if (photo != null) {
 						PhotoManager.getInstance().addPhoto(photo);
-						goToPhotoDetails(photo);
+						goToPhotoDetails(photo.getId());
 					}
 				}
 				break;
@@ -115,12 +110,12 @@ public class HomeScreen extends AppCompatActivity
 
 	@Override
 	public void onPhotoSelected(Photo photo) {
-		goToPhotoDetails(photo);
+		goToPhotoDetails(photo.getId());
 	}
 
-	private void goToPhotoDetails(Photo photo) {
+	private void goToPhotoDetails(int photoId) {
 		Intent intent = new Intent(this, DetailScreen.class);
-		intent.putExtra(PhotoDetailsFragment.PHOTO_ID_KEY, photo.getId());
+		intent.putExtra(PhotoDetailsFragment.PHOTO_ID_KEY, photoId);
 		startActivity(intent);
 	}
 

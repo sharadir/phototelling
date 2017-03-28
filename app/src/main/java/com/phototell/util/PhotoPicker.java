@@ -7,10 +7,9 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import com.phototell.R;
-import com.phototell.data.UriInfo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,11 +58,10 @@ public class PhotoPicker {
         return list;
     }
 
-    @NonNull
-    public static UriInfo getUriInfoFromResult(Context context, int resultCode,
+    @Nullable
+    public static Uri getUriFromResult(Context context, int resultCode,
                                            Intent imageReturnedIntent) {
         Log.d(TAG, "getUriInfoFromResult, resultCode: " + resultCode);
-        UriInfo uriInfo = new UriInfo();
         Uri selectedImage = null;
 
         File imageFile = getTempFile(context);
@@ -76,11 +74,9 @@ public class PhotoPicker {
             } else {            /** ALBUM **/
                 selectedImage = imageReturnedIntent.getData();
             }
-            uriInfo.setCamera(isCamera);
-            uriInfo.setUri(selectedImage);
             Log.d(TAG, "selectedImage: " + selectedImage);
         }
-        return uriInfo;
+        return selectedImage;
     }
 
     private static File getTempFile(Context context) {

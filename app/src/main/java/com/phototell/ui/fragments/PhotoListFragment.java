@@ -1,18 +1,15 @@
 package com.phototell.ui.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.phototell.R;
-import com.phototell.common.DataLoader;
+import com.phototell.common.DataListLoader;
 import com.phototell.data.Photo;
 import com.phototell.model.PhotoManager;
 import com.phototell.ui.views.PhotoListItemCard;
@@ -36,13 +33,12 @@ public class PhotoListFragment extends BaseDataListFragment {
 
     // Container Activity must implement this interface
     public interface OnPhotoSelectedListener {
-        public void onPhotoSelected(Photo photo);
+        void onPhotoSelected(Photo photo);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
@@ -58,21 +54,18 @@ public class PhotoListFragment extends BaseDataListFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         showNoItems(false);
         showLoading(true);
-        PhotoManager.getInstance().loadData(new PhotoListener(this));
+        PhotoManager.getInstance().loadPhotos(new PhotosListener(this));
         return view;
     }
 
     @Override
     public void onResume() {
-
         adapter.setItems(PhotoManager.getInstance().cachedList());
-
         super.onResume();
     }
 
     @Override
     public void onPause() {
-
         super.onPause();
     }
 
@@ -83,9 +76,10 @@ public class PhotoListFragment extends BaseDataListFragment {
 
     @Override
     protected Map<Class, Class> getDataViewClasses() {
-        HashMap hashMap = new HashMap<Class, Class>();
-        hashMap.put(Photo.class, PhotoListItemCard.class);
-        return hashMap;
+        return new HashMap<Class, Class>()
+        {{
+           put(Photo.class, PhotoListItemCard.class);
+        }};
     }
 
     @Override
@@ -105,11 +99,11 @@ public class PhotoListFragment extends BaseDataListFragment {
         adapter.setItems(photos == null || photos.size() == 0 ? Collections.<Photo>emptyList() : photos);
     }
 
-    private static class PhotoListener implements DataLoader.OnDataLoadedListener<Photo> {
+    private static class PhotosListener implements DataListLoader.OnDataLoadedListener<Photo> {
 
         private WeakReference<PhotoListFragment> fragmentWeakReference;
 
-        public PhotoListener(PhotoListFragment fragment) {
+        public PhotosListener(PhotoListFragment fragment) {
             this.fragmentWeakReference = new WeakReference<>(fragment);
         }
 

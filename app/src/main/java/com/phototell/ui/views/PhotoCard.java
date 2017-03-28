@@ -2,6 +2,7 @@ package com.phototell.ui.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.sax.TextElementListener;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -20,6 +21,7 @@ import com.phototell.R;
 import com.phototell.common.ui.CustomView;
 import com.phototell.data.Photo;
 import com.phototell.ui.fragments.PhotoDetailsFragment;
+import com.phototell.util.PhotoUtility;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,6 +32,8 @@ public class PhotoCard extends CardView
     public TextView description;
     public TextView createdAt;
     public ImageView imageView;
+    public ImageView thumbnailView;
+
     public Button uploadDescription;
 
     public PhotoCard(Context context) {
@@ -52,6 +56,7 @@ public class PhotoCard extends CardView
         description = (TextView) view.findViewById(R.id.description);
         createdAt = (TextView) view.findViewById(R.id.created_at);
         imageView = (ImageView) view.findViewById(R.id.img_view);
+        thumbnailView = (ImageView) view.findViewById(R.id.thumbnail_view);
         uploadDescription= (Button) view.findViewById(R.id.upload_description);
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -84,6 +89,7 @@ public class PhotoCard extends CardView
             }
         });
 
+        imageView.setVisibility(VISIBLE);
         imageView.setImageBitmap(photo.getImageBitMap());
     }
 

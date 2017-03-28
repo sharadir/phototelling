@@ -9,6 +9,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+/**
+ * taken from other source code
+ * TODO add javadoc.
+ */
 public final class Threads {
 
 	private static final ExecutorService CACHED_THREAD_POOL = Executors.newCachedThreadPool();

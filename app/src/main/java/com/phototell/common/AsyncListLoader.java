@@ -1,24 +1,16 @@
 package com.phototell.common;
 
-/**
- * Created by user on 23/03/2017.
- */
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import java.util.Collections;
 import java.util.List;
 
 /*
-base class for AsyncTasks data loaders.
+base class for AsyncTasks data list loaders.
 D: data type.
 */
-public abstract class AsyncDataLoader<D> implements DataLoader<D> {
+public abstract class AsyncListLoader<D> implements DataListLoader<D> {
 
     private OnDataLoadedListener listener;
 
@@ -31,7 +23,7 @@ public abstract class AsyncDataLoader<D> implements DataLoader<D> {
         task.execute();
     }
 
-    protected void onDataLoaded(@Nullable List<D> data) {
+    private void onDataLoaded(@Nullable List<D> data) {
         if (listener != null && data != null) {
             listener.onSuccess(data);
         }
@@ -43,7 +35,7 @@ public abstract class AsyncDataLoader<D> implements DataLoader<D> {
         }
     }
 
-    public class DataLoadTask extends AsyncTask<Void, Void, List<D>> {
+    protected class DataLoadTask extends AsyncTask<Void, Void, List<D>> {
 
         @Override
         protected List<D> doInBackground(Void... params) {
