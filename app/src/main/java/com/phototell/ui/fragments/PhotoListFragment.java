@@ -60,8 +60,16 @@ public class PhotoListFragment extends BaseDataListFragment {
 
     @Override
     public void onResume() {
-        adapter.setItems(PhotoManager.getInstance().cachedList());
+        refreshData();
         super.onResume();
+    }
+
+    private void refreshData() {
+        List<Photo> photo = PhotoManager.getInstance().cachedList();
+        if (photo.size() > 0) {
+            showNoItems(false);
+        }
+        adapter.setItems(photo);
     }
 
     @Override

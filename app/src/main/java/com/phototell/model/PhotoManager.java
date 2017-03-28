@@ -80,6 +80,7 @@ public class PhotoManager {
     }
 
     public List<Photo> cachedList() {
+
         return photos;
     }
 
@@ -131,7 +132,6 @@ public class PhotoManager {
 
                     @Override
                     public void onFailure(String errorMessage) {
-
                         listener.onFailure(errorMessage);
                     }
                 });

@@ -30,9 +30,6 @@ public class Photo implements Serializable {
     private byte[] thumbnailBytes;
 
     @DatabaseField
-    private String name;
-
-    @DatabaseField
     private String description;
 
     @DatabaseField
@@ -101,16 +98,8 @@ public class Photo implements Serializable {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
-        return name + " " + description;
+        return creationDate + " " + description;
     }
 }
