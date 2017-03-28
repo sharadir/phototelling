@@ -1,66 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/img_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/full_image"
         android:scaleType="centerCrop" />
 
-    <ImageView
-        android:id="@+id/thumbnail_view"
-        android:layout_below="@+id/img_view"
+    <TextView
+        android:id="@+id/created_at"
         android:layout_width="wrap_content"
-        android:contentDescription="@string/full_image_thumbnail"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/badge_circle"
+        android:padding="4dp"
+        android:textColor="@color/colorPrimaryYellow" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pic_data"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/created_at"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:maxLines="3"
-            android:padding="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="#444"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:maxLines="3"
-            android:padding="8dp"
-            android:focusable="false" />
-    </LinearLayout>
-
+        android:layout_below="@+id/img_view"
+        android:layout_marginStart="12dp"
+        android:focusable="false"
+        android:maxLines="3"
+        android:padding="8dp" />
 
     <Button
-        android:background="@drawable/button_shape"
         android:id="@+id/upload_description"
-        android:layout_below="@+id/pic_data"
+        android:layout_below="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:padding="4dp"
         android:text="@string/upload_img_description"
-        android:textColor="@color/colorPrimaryYellow"
-        android:padding="8dp"
-        android:focusable="true" />
+        android:textColor="@color/colorPrimaryGreen" />
 
 </RelativeLayout>
 

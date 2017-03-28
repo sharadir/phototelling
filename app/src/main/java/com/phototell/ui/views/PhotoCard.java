@@ -7,6 +7,7 @@ import android.sax.TextElementListener;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,6 @@ public class PhotoCard extends CardView
     public TextView description;
     public TextView createdAt;
     public ImageView imageView;
-    public ImageView thumbnailView;
 
     public Button uploadDescription;
 
@@ -56,13 +56,8 @@ public class PhotoCard extends CardView
         description = (TextView) view.findViewById(R.id.description);
         createdAt = (TextView) view.findViewById(R.id.created_at);
         imageView = (ImageView) view.findViewById(R.id.img_view);
-        thumbnailView = (ImageView) view.findViewById(R.id.thumbnail_view);
-        uploadDescription= (Button) view.findViewById(R.id.upload_description);
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        setLayoutParams(params);
+        uploadDescription= (Button) view.findViewById(R.id.upload_description);
         setContentPadding(20, 20, 20, 20);
         setMaxCardElevation(5);
         setCardElevation(9);
@@ -75,11 +70,10 @@ public class PhotoCard extends CardView
 
         description.setText(photo.getDescription());
         Date creationDate = photo.getCreationDate();
-	    String newDateFormat = new SimpleDateFormat("dd-MM-yyyy").format(creationDate);
+	    String newDateFormat = new SimpleDateFormat("dd-MM-yy").format(creationDate);
         if (newDateFormat != null) {
             createdAt.setText(newDateFormat);
         }
-
         uploadDescription.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +83,6 @@ public class PhotoCard extends CardView
             }
         });
 
-        imageView.setVisibility(VISIBLE);
         imageView.setImageBitmap(photo.getImageBitMap());
     }
 

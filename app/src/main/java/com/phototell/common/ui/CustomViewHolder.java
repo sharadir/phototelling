@@ -1,12 +1,14 @@
 package com.phototell.common.ui;
 
 /**
- * Custom view holder to handle recycler events
+ * Custom view holder for handling recycler events
  */
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.phototell.ui.views.PhotoListItemCard;
 
 public class CustomViewHolder<D> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
@@ -18,6 +20,9 @@ public class CustomViewHolder<D> extends RecyclerView.ViewHolder implements View
         super(customView.getView());
         this.customView = customView;
         this.clickListener = clickListener;
+        if(itemView instanceof PhotoListItemCard){//TODO fix this (bug)
+            ((PhotoListItemCard)itemView).photoCard.setOnClickListener(this);
+        }
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
     }

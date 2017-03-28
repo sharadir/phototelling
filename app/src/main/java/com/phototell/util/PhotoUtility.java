@@ -34,8 +34,8 @@ public class PhotoUtility {
                 int column_index_date_taken = cursor
                         .getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN);
                 dateTaken = cursor.getString(column_index_date_taken);
+                cursor.close();
             }
-            cursor.close();
             photo.setCreationDate(DateUtility.getDate(dateTaken));
             photo.setPath(uri.toString());
             AssetFileDescriptor fileDescriptor = context.getContentResolver().openAssetFileDescriptor(uri, "r");

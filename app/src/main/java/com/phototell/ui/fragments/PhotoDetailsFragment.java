@@ -58,7 +58,7 @@ public class PhotoDetailsFragment extends BaseDataFragment {
     protected View inflateDataView(ViewStub dataWrapper) {
         dataWrapper.setLayoutResource(R.layout.photo_card_scroll);
         View view = dataWrapper.inflate();
-        photoCard = (PhotoCard) view.findViewById(R.id.card);
+        photoCard = (PhotoCard) view.findViewById(R.id.card_item);
         return photoCard;
     }
 

@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\user\Documents\GitHub\phototell\app\libs\ormlite-core-4.43.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b6a73dff02ae2530bb879f5e2bb754da8915696c">
-        <dex dex="C:\Users\user\Documents\GitHub\phototell\app\build\intermediates\transforms\dex\debug\folders\1000\2\ormlite-core-4.43_3ab2870ecbf717faef31f8c0506d1770e84b6073\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\user\Documents\GitHub\phototell\app\libs\ormlite-android-4.43.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="8fcbe57e9d2f9bc1a7170fe0805161185df36a4a">
         <dex dex="C:\Users\user\Documents\GitHub\phototell\app\build\intermediates\transforms\dex\debug\folders\1000\2\ormlite-android-4.43_36ca29c0c3f5e641bfec0c336b49b354dd256ef9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\user\Documents\GitHub\phototell\app\libs\ormlite-core-4.43.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b6a73dff02ae2530bb879f5e2bb754da8915696c">
+        <dex dex="C:\Users\user\Documents\GitHub\phototell\app\build\intermediates\transforms\dex\debug\folders\1000\2\ormlite-core-4.43_3ab2870ecbf717faef31f8c0506d1770e84b6073\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -34,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="ecd55dc45fdce552dd2966817b1f102a0512cf34">
+        sha1="ec56dc3d18421891b7841dfc39171bd5f12dc394">
         <dex dex="C:\Users\user\Documents\GitHub\phototell\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_7f6f4a77ebc3d5934a5ac780c14aca34b3df2cb7\classes.dex" />
     </item>
 

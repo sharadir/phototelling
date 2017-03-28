@@ -51,6 +51,11 @@ public class PhotoManager {
             Dao<Photo, Integer> dao = helper.getPhotoDao();
             dao.create(photo);
             photos.add(photo);
+            Collections.sort(photos, new Comparator<Photo>() {
+                public int compare(Photo o1, Photo o2) {
+                    return o2.getCreationDate().compareTo(o1.getCreationDate());
+                }
+            });
         } catch (SQLException e) {
             //TODO improve design to have onFailure
             int duration = Toast.LENGTH_SHORT;
