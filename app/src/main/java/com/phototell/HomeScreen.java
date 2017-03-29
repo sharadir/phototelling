@@ -28,6 +28,9 @@ public class HomeScreen extends AppCompatActivity
 		implements PhotoListFragment.OnPhotoSelectedListener {
 
 	private static final int RESULT_LOAD_IMAGE = 1;
+	public static final String FILTER_KEY = "filter_id";
+
+	private String filterText = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,10 @@ public class HomeScreen extends AppCompatActivity
 		});
 
 		if (savedInstanceState != null) {
+			filterText = savedInstanceState.getString(FILTER_KEY, "");
+			if(!filterText.equals("")) {
+				filterPhotos(filterText);
+			}
 			return;
 		}
 		// Create a new Fragment to be placed in the activity layout
@@ -66,6 +73,7 @@ public class HomeScreen extends AppCompatActivity
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+		outState.putString(FILTER_KEY, filterText);
 	}
 
 	@Override
@@ -133,18 +141,23 @@ public class HomeScreen extends AppCompatActivity
 		}
 
 		@Override
-		public boolean onQueryTextChange(String newText) {
-			PhotoListFragment photoListFragment = getPhotoListFragment();
-			if (photoListFragment != null) {
-				photoListFragment.showLoading(true);//not significant since photo manager filer photo method is sync
-				List<Photo> filteredPhoto = PhotoManager.getInstance().filterPhotos(newText);
-				photoListFragment.setItems(filteredPhoto);
-				photoListFragment.showLoading(false);
-				if (filteredPhoto == null || filteredPhoto.size() == 0) {
-					MessageUtility.message(getResources().getString(R.string.no_pics_filter));
-				}
-			}
+		public boolean onQueryTextChange(String filterText) {
+			filterPhotos(filterText);
 			return true;
+		}
+	}
+
+	private void filterPhotos(String filterText){
+		this.filterText = filterText;
+		PhotoListFragment photoListFragment = getPhotoListFragment();
+		if (photoListFragment != null) {
+			photoListFragment.showLoading(true);//not significant since photo manager filer photo method is sync
+			List<Photo> filteredPhoto = PhotoManager.getInstance().filterPhotos(filterText);
+			photoListFragment.setItems(filteredPhoto);
+			photoListFragment.showLoading(false);
+			if (filteredPhoto == null || filteredPhoto.size() == 0) {
+				MessageUtility.message(getResources().getString(R.string.no_pics_filter));
+			}
 		}
 	}
 }

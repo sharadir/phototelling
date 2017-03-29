@@ -19,7 +19,6 @@ class PhotosLoader<D> extends AsyncListLoader<Photo> {
     @WorkerThread
     protected List<Photo> fetchDataInBackground(AsyncListLoader<Photo>.DataLoadTask task) {
         DatabaseHelper  helper = new DatabaseHelper(PhotoTellApplication.getContext());
-        helper.close();
         Log.i(Photo.class.getName(), "Show list");
         List<Photo> list = null;
         try {
@@ -31,6 +30,9 @@ class PhotosLoader<D> extends AsyncListLoader<Photo> {
 
         } catch (Exception e) {
             onFailure(e.toString());//TODO improve
+        }
+        finally {
+	        helper.close();
         }
         return list;
     }

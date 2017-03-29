@@ -41,8 +41,8 @@ public class PhotoDetailsFragment extends BaseDataFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         Bundle arguments = getArguments();
-        photoCard.setVisibility(GONE);
         showNoItems(false);
+	    photoCard.setVisibility(GONE);
         if (arguments != null) {
             Integer photoId = arguments.getInt(PHOTO_ID_KEY);
             int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),

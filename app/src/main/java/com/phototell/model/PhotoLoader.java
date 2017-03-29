@@ -34,5 +34,8 @@ class PhotoLoader<D> extends AsyncLoader<Photo> {
             onFailure(e.toString());//TODO improve
             return null;
         }
+        finally {
+	        helper.close();
+        }
     }
 }
