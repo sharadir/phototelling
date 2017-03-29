@@ -48,7 +48,6 @@ public class PhotoListItemCard extends LinearLayout implements CustomView<Photo>
         photoCard = (PhotoCard) view.findViewById(R.id.card_item);
         photoCard.setClickable(true);
         photoCard.setFocusable(true);
-        photoCard.uploadDescription.setVisibility(GONE);
 
         RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);

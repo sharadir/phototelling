@@ -49,9 +49,9 @@ public abstract class BaseDataListFragment
         DefaultItemAnimator animator = new DefaultItemAnimator();
         animator.setRemoveDuration(500);
         recyclerView.setItemAnimator(animator);
-        /*recyclerView.addItemDecoration(
+        recyclerView.addItemDecoration(
                 new SpaceItemDecoration(getActivity(), R.dimen.dimen_8,
-                        true, true));*/
+                        true, true));
         registerForContextMenu(recyclerView);
         return recyclerView;
     }

@@ -40,23 +40,16 @@ public class PhotoUtility {
             photo.setPath(uri.toString());
             AssetFileDescriptor fileDescriptor = context.getContentResolver().openAssetFileDescriptor(uri, "r");
             Bitmap bm = getThumbImage(uri);
-            if (bm != null) {//TODO imrove
+            if (bm != null) {//TODO improve
                 photo.setThumbnailBytes(getBytes(bm));
                 photo.setThumbnailBBitMap(bm);
-            } else {//TODO imrove
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error uploading the image", duration);
-                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
-                toast.show();
+            } else {//TODO improve
+                MessageUtility.message("there was an error uploading the image");
                 return null;
             }
             return photo;
         } catch (Exception e) {
-            e.printStackTrace();//TODO fix ugly
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error uploading the image" + e.toString(), duration);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
-            toast.show();
+            MessageUtility.exception(e);
             return null;
         }
     }
@@ -68,8 +61,8 @@ public class PhotoUtility {
                     getContentResolver().openAssetFileDescriptor(uri, "r");
             return ThumbnailUtils.extractThumbnail(getImage(fileDescriptor), THUMBSIZE, THUMBSIZE);
 
-        } catch (Exception ex) {
-            // Throwable ex;
+        } catch (Exception e) {
+            MessageUtility.exception(e);
             return null;
         }
     }
@@ -106,6 +99,7 @@ public class PhotoUtility {
             return getImage(fileDescriptor);
         } catch (Exception e) {
             //Do nothing
+            MessageUtility.exception(e);
             return null;
         }
     }

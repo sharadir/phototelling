@@ -17,6 +17,7 @@ import com.phototell.data.Photo;
 import com.phototell.model.PhotoManager;
 import com.phototell.ui.fragments.PhotoDetailsFragment;
 import com.phototell.ui.fragments.PhotoListFragment;
+import com.phototell.util.MessageUtility;
 import com.phototell.util.PhotoPicker;
 import com.phototell.util.PhotoUtility;
 
@@ -140,10 +141,7 @@ public class HomeScreen extends AppCompatActivity
 				photoListFragment.setItems(filteredPhoto);
 				photoListFragment.showLoading(false);
 				if (filteredPhoto == null || filteredPhoto.size() == 0) {
-					int duration = Toast.LENGTH_SHORT;
-					Toast toast = Toast.makeText(HomeScreen.this, getResources().getString(R.string.no_pics_filter), duration);
-					toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
-					toast.show();
+					MessageUtility.message(getResources().getString(R.string.no_pics_filter));
 				}
 			}
 			return true;

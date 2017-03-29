@@ -3,14 +3,13 @@ package com.phototell.model;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.Gravity;
-import android.widget.Toast;
 
 import com.j256.ormlite.dao.Dao;
 import com.phototell.PhotoTellApplication;
 import com.phototell.common.DataListLoader;
 import com.phototell.common.DataLoader;
 import com.phototell.data.Photo;
+import com.phototell.util.MessageUtility;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,11 +56,8 @@ public class PhotoManager {
                 }
             });
         } catch (SQLException e) {
-            //TODO improve design to have onFailure
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error saving the image" + e.toString(), duration);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
-            toast.show();
+            //TODO improve
+            MessageUtility.exception(e);
         }
     }
 
@@ -71,16 +67,12 @@ public class PhotoManager {
             Dao<Photo, Integer> dao = helper.getPhotoDao();
             dao.update(photo);
         } catch (Exception e) {
-            //TODO improve design to have onFailure
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error saving the image" + e.toString(), duration);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
-            toast.show();
+            //TODO improve design
+            MessageUtility.exception(e);
         }
     }
 
     public List<Photo> cachedList() {
-
         return photos;
     }
 
@@ -106,10 +98,7 @@ public class PhotoManager {
                     }
                 });
             } catch (Exception e) {
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error saving the image" + e.toString(), duration);
-                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
-                toast.show();
+                MessageUtility.exception(e);
             }
         }
     }
@@ -140,10 +129,7 @@ public class PhotoManager {
                 listener.onSuccess(photo);
             }
         } catch (Exception e) {
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(PhotoTellApplication.getContext().getApplicationContext(), "there was an error saving the image" + e.toString(), duration);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 200);
-            toast.show();
+            MessageUtility.exception(e);
         }
     }
 

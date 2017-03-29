@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbarStyle="outsideOverlay">
 
     <com.phototell.ui.views.PhotoCard
         android:id="@+id/card_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/dimen_8"
+        android:layout_height="match_parent"
         />
 </ScrollView>

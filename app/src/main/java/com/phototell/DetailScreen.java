@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +36,16 @@ public class DetailScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        Bundle args = getIntent().getExtras();
+        if(args != null){
+            photoId = args.getInt(PhotoDetailsFragment.PHOTO_ID_KEY, 0);
+        }
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_MEDIA);
+        }//PhotoDetailsFragment checks for PERMISSION before loading.
+
         detailsReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -43,14 +55,9 @@ public class DetailScreen extends AppCompatActivity {
                 handlePhotoDescription(photoId);
             }
         };
-
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_MEDIA);
-        }
-
         IntentFilter filter = new IntentFilter(LOAD_DETAIL_BROADCAST_NAME);
         this.registerReceiver(detailsReceiver, filter);
+
         if (savedInstanceState != null) {
             photoId = savedInstanceState.getInt(PhotoDetailsFragment.PHOTO_ID_KEY, 0);
             return;
@@ -73,11 +80,24 @@ public class DetailScreen extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_READ_MEDIA:
                 if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    handlePhotoDescription(photoId);
+                    loadPhoto();
+                }
+                else{
+                    PhotoDetailsFragment photoDetailsFragment = getPhotoDetailsFragment();
+                    if (photoDetailsFragment != null) {
+                        photoDetailsFragment.showNoPhoto();
+                    }
                 }
                 break;
             default:
                 break;
+        }
+    }
+
+    private void loadPhoto() {
+        PhotoDetailsFragment photoDetailsFragment = getPhotoDetailsFragment();
+        if (photoDetailsFragment != null) {
+            photoDetailsFragment.loadPhoto(photoId);
         }
     }
 
@@ -112,7 +132,6 @@ public class DetailScreen extends AppCompatActivity {
             final EditText input = new EditText(this);
             input.setText(photo.getDescription());
             alert.setView(input);
-
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     Editable editable = input.getText();
@@ -121,13 +140,11 @@ public class DetailScreen extends AppCompatActivity {
                     photoDetailsFragment.setPhoto(photo);
                 }
             });
-
             alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     // Canceled.
                 }
             });
-
             alert.show();
         }
     }

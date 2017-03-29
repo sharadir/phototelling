@@ -26,6 +26,7 @@ public class PhotoCard extends CardView
     public TextView description;
     public TextView createdAt;
     public ImageView imageView;
+    public View separator;
 
     public Button uploadDescription;
 
@@ -49,8 +50,12 @@ public class PhotoCard extends CardView
         description = (TextView) view.findViewById(R.id.description);
         createdAt = (TextView) view.findViewById(R.id.created_at);
         imageView = (ImageView) view.findViewById(R.id.img_view);
+        separator =  view.findViewById(R.id.line_sep);
+        separator.setVisibility(GONE);
 
         uploadDescription= (Button) view.findViewById(R.id.upload_description);
+        uploadDescription.setVisibility(GONE);
+
         setContentPadding(20, 20, 20, 20);
         setMaxCardElevation(5);
         setCardElevation(9);
@@ -77,6 +82,8 @@ public class PhotoCard extends CardView
         });
 
         imageView.setImageBitmap(photo.getImageBitMap());
+        uploadDescription.setVisibility(VISIBLE);
+        separator.setVisibility(VISIBLE);
     }
 
     @Override

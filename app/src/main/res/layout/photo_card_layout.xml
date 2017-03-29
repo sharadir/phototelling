@@ -29,13 +29,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_view"
         android:layout_marginStart="12dp"
+        android:textSize="@dimen/font_25"
+        android:textColor="@color/colorPrimaryGreen"
         android:focusable="false"
-        android:maxLines="3"
         android:padding="8dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/line_sep"
+        android:layout_below="@+id/description"
+        android:background="@color/colorPrimaryYellow"/>
 
     <Button
         android:id="@+id/upload_description"
-        android:layout_below="@+id/description"
+        android:layout_below="@+id/line_sep"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
